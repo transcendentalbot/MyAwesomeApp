@@ -27,7 +27,7 @@ export default function Dashboard() {
   const renderProject = ({ item }: { item: Project }) => (
     <TouchableOpacity 
       style={styles.card}
-      onPress={() => router.push(`/(script)/${item.id}`)}
+      onPress={() => router.push('/tabs/script/' + item.id)}
     >
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.description}>{item.description}</Text>
@@ -52,7 +52,7 @@ export default function Dashboard() {
     };
 
     console.log('Created new project:', newProject);
-    router.push(`/(script)/${newProject.id}`);
+    router.push('/tabs/script/' + newProject.id);
   };
 
   return (

@@ -529,12 +529,6 @@ const styles = StyleSheet.create({
   scenesList: {
     flex: 1,
   },
-  sceneHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
   editSceneButton: {
     padding: 4,
     borderRadius: 4,
