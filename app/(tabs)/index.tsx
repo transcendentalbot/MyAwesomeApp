@@ -718,7 +718,10 @@ export default function Home() {
         updatedAt: new Date().toISOString(),
       };
       console.log('Created new project:', newProject);
-      router.push('/dashboard/' + newProject.id);
+      router.push({
+        pathname: "/(tabs)/dashboard",
+        params: { id: newProject.id }
+      });
     } catch (error) {
       console.error('Error saving:', error);
     } finally {
