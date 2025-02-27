@@ -4,6 +4,12 @@ import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useTheme } from '../../src/theme/ThemeContext';
+import { WorkflowStepper } from '../../src/components/workflow/WorkflowStepper';
+import { ScriptEditor } from '../../src/components/workflow/ScriptEditor';
+import { SceneGenerator } from '../../src/components/workflow/SceneGenerator';
+import { AudioSelector } from '../../src/components/workflow/AudioSelector';
+import { CaptionEditor } from '../../src/components/workflow/CaptionEditor';
+import { MovieRenderer } from '../../src/components/workflow/MovieRenderer';
 
 const WORKFLOW_STEPS = [
   { 
@@ -672,7 +678,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Home() {
+export default function WorkflowScreen() {
   const { theme, isDark, toggleTheme } = useTheme();
   const [content, setContent] = useState('');
   const [isSaving, setSaving] = useState(false);
@@ -795,16 +801,20 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (currentStep === 2) {
-      fetchScenes();
-    }
+    // Remove the fetchScenes() call from here
+    // Other step-specific initialization can stay
   }, [currentStep]);
 
-  const updateScene = (index: number, updatedScene: Scene) => {
-    const newScenes = [...scenes];
-    newScenes[index] = updatedScene;
-    setScenes(newScenes);
-    setEditingScene(null);
+  const updateScene = (index: number, updatedScene: Scene | Scene[]) => {
+    if (Array.isArray(updatedScene)) {
+      setScenes(updatedScene);
+    } else {
+      setScenes(prev => {
+        const newScenes = [...prev];
+        newScenes[index] = updatedScene;
+        return newScenes;
+      });
+    }
   };
 
   const generateImage = async (scene: Scene) => {
@@ -821,631 +831,41 @@ export default function Home() {
     switch (currentStep) {
       case 1:
         return (
-          <>
-            <View style={styles.twoColumnLayout}>
-              <View style={[styles.leftColumn, { borderRightColor: theme.border }]}>
-                <View style={styles.paneHeader}>
-                  <Text style={[styles.paneTitle, { color: theme.textSecondary }]}>
-                    Script Editor
-                  </Text>
-                </View>
-                <ScrollView style={[styles.editor, { backgroundColor: theme.card }]}>
-                  <TextInput
-                    style={[styles.input, { color: theme.text }]}
-                    multiline
-                    value={content}
-                    onChangeText={setContent}
-                    placeholder="Enter your script content here..."
-                    textAlignVertical="top"
-                    placeholderTextColor={theme.textSecondary}
-                  />
-                </ScrollView>
-
-                <TouchableOpacity 
-                  style={[styles.preferencesToggle, { backgroundColor: theme.buttonBg }]}
-                  onPress={() => setShowPreferences(!showPreferences)}
-                >
-                  <Text style={[styles.preferencesToggleText, { color: theme.text }]}>
-                    {showPreferences ? 'Hide Preferences' : 'Show Scene Preferences'}
-                  </Text>
-                  <Ionicons 
-                    name={showPreferences ? 'chevron-up' : 'chevron-down'} 
-                    size={20} 
-                    color={theme.text}
-                  />
-                </TouchableOpacity>
-
-                {showPreferences && (
-                  <View style={[styles.preferencesPanel, { backgroundColor: theme.card }]}>
-                    <View style={styles.preferenceRow}>
-                      <Text style={[styles.preferenceLabel, { color: theme.textSecondary }]}>Genre:</Text>
-                      <View style={styles.optionsRow}>
-                        {['drama', 'comedy', 'action', 'thriller', 'romance'].map((genre) => (
-                          <TouchableOpacity
-                            key={genre}
-                            style={[
-                              styles.optionButton,
-                              { backgroundColor: theme.buttonBg },
-                              scenePreferences.genre === genre && { 
-                                backgroundColor: theme.primary,
-                                borderColor: theme.primary 
-                              }
-                            ]}
-                            onPress={() => setScenePreferences({ ...scenePreferences, genre })}
-                          >
-                            <Text style={[
-                              styles.optionText,
-                              { color: theme.buttonText },
-                              scenePreferences.genre === genre && { color: 'white' }
-                            ]}>
-                              {genre.charAt(0).toUpperCase() + genre.slice(1)}
-                            </Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-                    </View>
-
-                    <View style={styles.preferenceRow}>
-                      <Text style={[styles.preferenceLabel, { color: theme.textSecondary }]}>Style:</Text>
-                      <View style={styles.optionsRow}>
-                        {['realistic', 'stylized', 'minimalist', 'cinematic'].map((style) => (
-                          <TouchableOpacity
-                            key={style}
-                            style={[
-                              styles.optionButton,
-                              { backgroundColor: theme.buttonBg },
-                              scenePreferences.style === style && { 
-                                backgroundColor: theme.primary,
-                                borderColor: theme.primary 
-                              }
-                            ]}
-                            onPress={() => setScenePreferences({ ...scenePreferences, style })}
-                          >
-                            <Text style={[
-                              styles.optionText,
-                              { color: theme.buttonText },
-                              scenePreferences.style === style && { color: 'white' }
-                            ]}>
-                              {style.charAt(0).toUpperCase() + style.slice(1)}
-                            </Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-                    </View>
-
-                    <View style={styles.preferenceRow}>
-                      <Text style={[styles.preferenceLabel, { color: theme.textSecondary }]}>Tone:</Text>
-                      <View style={styles.optionsRow}>
-                        {['light', 'neutral', 'dark', 'intense'].map((tone) => (
-                          <TouchableOpacity
-                            key={tone}
-                            style={[
-                              styles.optionButton,
-                              { backgroundColor: theme.buttonBg },
-                              scenePreferences.tone === tone && { 
-                                backgroundColor: theme.primary,
-                                borderColor: theme.primary 
-                              }
-                            ]}
-                            onPress={() => setScenePreferences({ ...scenePreferences, tone })}
-                          >
-                            <Text style={[
-                              styles.optionText,
-                              { color: theme.buttonText },
-                              scenePreferences.tone === tone && { color: 'white' }
-                            ]}>
-                              {tone.charAt(0).toUpperCase() + tone.slice(1)}
-                            </Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-                    </View>
-
-                    <View style={styles.preferenceRow}>
-                      <Text style={[styles.preferenceLabel, { color: theme.textSecondary }]}>Pacing:</Text>
-                      <View style={styles.optionsRow}>
-                        {['slow', 'moderate', 'fast', 'dynamic'].map((pacing) => (
-                          <TouchableOpacity
-                            key={pacing}
-                            style={[
-                              styles.optionButton,
-                              { backgroundColor: theme.buttonBg },
-                              scenePreferences.pacing === pacing && { 
-                                backgroundColor: theme.primary,
-                                borderColor: theme.primary 
-                              }
-                            ]}
-                            onPress={() => setScenePreferences({ ...scenePreferences, pacing })}
-                          >
-                            <Text style={[
-                              styles.optionText,
-                              { color: theme.buttonText },
-                              scenePreferences.pacing === pacing && { color: 'white' }
-                            ]}>
-                              {pacing.charAt(0).toUpperCase() + pacing.slice(1)}
-                            </Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-                    </View>
-                  </View>
-                )}
-
-                <TouchableOpacity 
-                  style={[styles.analyzeButton, !content.trim() && styles.buttonDisabled]}
-                  onPress={analyzeScript}
-                  disabled={!content.trim() || isAnalyzing}
-                >
-                  <Text style={styles.analyzeButtonText}>
-                    {isAnalyzing ? 'Analyzing...' : 'Analyze Script'}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.rightColumn}>
-                {scriptAnalysis && (
-                  <>
-                    <View style={styles.paneHeader}>
-                      <Text style={[styles.paneTitle, { color: theme.textSecondary }]}>
-                        Analysis Results
-                      </Text>
-                    </View>
-                    <ScrollView style={[styles.analysisScroll, { backgroundColor: theme.background }]}>
-                      <View style={[styles.analysisContainer, { 
-                        backgroundColor: theme.card,
-                        borderColor: theme.border 
-                      }]}>
-                        <Text style={styles.analysisTitle}>{scriptAnalysis.story_title}</Text>
-                        
-                        <View style={styles.characterSection}>
-                          <View style={styles.sectionHeader}>
-                            <Text style={[styles.sectionTitle, { color: theme.text }]}>Characters:</Text>
-                            <TouchableOpacity 
-                              style={[styles.addCharacterButton, { backgroundColor: theme.buttonBg }]}
-                              onPress={() => setShowAddCharacter(!showAddCharacter)}
-                            >
-                              <Ionicons 
-                                name={showAddCharacter ? 'close' : 'add'} 
-                                size={20} 
-                                color={theme.buttonText}
-                              />
-                            </TouchableOpacity>
-                          </View>
-
-                          {showAddCharacter && (
-                            <View style={[styles.addCharacterForm, { 
-                              backgroundColor: theme.card,
-                              borderColor: theme.border 
-                            }]}>
-                              <TextInput
-                                style={[styles.characterInput, { 
-                                  backgroundColor: theme.background,
-                                  color: theme.text,
-                                  borderColor: theme.border 
-                                }]}
-                                value={newCharacter.name}
-                                onChangeText={(text) => setNewCharacter({ ...newCharacter, name: text })}
-                                placeholder="New character name"
-                                placeholderTextColor={theme.textSecondary}
-                              />
-                              <TextInput
-                                style={[styles.characterInput, { 
-                                  backgroundColor: theme.background,
-                                  color: theme.text,
-                                  borderColor: theme.border 
-                                }]}
-                                value={newCharacter.description}
-                                onChangeText={(text) => setNewCharacter({ ...newCharacter, description: text })}
-                                placeholder="New character description"
-                                placeholderTextColor={theme.textSecondary}
-                              />
-                              <TouchableOpacity 
-                                style={[styles.addButton, !newCharacter.name.trim() && styles.buttonDisabled]}
-                                onPress={handleAddCharacter}
-                                disabled={!newCharacter.name.trim()}
-                              >
-                                <Text style={styles.addButtonText}>Add Character</Text>
-                              </TouchableOpacity>
-                            </View>
-                          )}
-
-                          {scriptAnalysis.characters.map((char, index) => (
-                            <View key={index} style={styles.characterItem}>
-                              {editingCharacter === char ? (
-                                <View style={styles.characterEdit}>
-                                  <TextInput
-                                    style={styles.characterInput}
-                                    value={char.name}
-                                    onChangeText={(text) => {
-                                      const updated = { ...char, name: text };
-                                      handleUpdateCharacter(index, updated);
-                                    }}
-                                    placeholder="Character name"
-                                    placeholderTextColor={theme.textSecondary}
-                                  />
-                                  <TextInput
-                                    style={styles.characterInput}
-                                    value={char.description}
-                                    onChangeText={(text) => {
-                                      const updated = { ...char, description: text };
-                                      handleUpdateCharacter(index, updated);
-                                    }}
-                                    placeholder="Character description"
-                                    placeholderTextColor={theme.textSecondary}
-                                  />
-                                  <TouchableOpacity 
-                                    style={[styles.iconButton, { backgroundColor: theme.buttonBg }]}
-                                    onPress={() => setEditingCharacter(null)}
-                                  >
-                                    <Ionicons name="checkmark" size={16} color={theme.primary} />
-                                  </TouchableOpacity>
-                                </View>
-                              ) : (
-                                <>
-                                  <View style={styles.characterHeader}>
-                                    <Text style={styles.characterName}>{char.name}</Text>
-                                    <TouchableOpacity 
-                                      style={[styles.iconButton, { backgroundColor: theme.buttonBg }]}
-                                      onPress={() => setEditingCharacter(char)}
-                                    >
-                                      <Ionicons name="pencil" size={16} color={theme.buttonText} />
-                                    </TouchableOpacity>
-                                  </View>
-                                  <Text style={styles.characterDesc}>{char.description}</Text>
-                                </>
-                              )}
-                            </View>
-                          ))}
-                        </View>
-
-                        <Text style={styles.sectionTitle}>Setting:</Text>
-                        <Text style={styles.settingText}>
-                          Location: {scriptAnalysis.setting.location}
-                        </Text>
-                        <Text style={styles.settingText}>
-                          Time: {scriptAnalysis.setting.time}
-                        </Text>
-
-                        <Text style={styles.sectionTitle}>Plot Points:</Text>
-                        {scriptAnalysis.plot.map((point, index) => (
-                          <Text key={index} style={styles.plotPoint}>• {point}</Text>
-                        ))}
-
-                        <Text style={styles.sectionTitle}>Moral:</Text>
-                        <Text style={styles.moralText}>{scriptAnalysis.moral}</Text>
-                      </View>
-                    </ScrollView>
-                  </>
-                )}
-              </View>
-            </View>
-            
-            <View style={styles.navigation}>
-              <View style={styles.navButtonPlaceholder} />
-              {scriptAnalysis && (
-                <TouchableOpacity 
-                  style={[styles.navButton, styles.navButtonPrimary]}
-                  onPress={() => setCurrentStep(2)}
-                >
-                  <Text style={[styles.navButtonText, styles.navButtonTextPrimary]}>
-                    Next →
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          </>
+          <ScriptEditor 
+            content={content}
+            setContent={setContent}
+            scriptAnalysis={scriptAnalysis}
+            isAnalyzing={isAnalyzing}
+            onAnalyze={analyzeScript}
+            onNext={() => setCurrentStep(2)}
+          />
         );
       case 2:
         return (
-          <View style={styles.twoColumnLayout}>
-            <View style={[styles.leftColumn, { flex: 2, borderRightColor: theme.border }]}>
-              <View style={styles.paneHeader}>
-                <Text style={[styles.paneTitle, { color: theme.textSecondary }]}>
-                  Scenes
-                </Text>
-              </View>
-              
-              {isLoadingScenes ? (
-                <View style={[styles.loadingOverlay, { backgroundColor: theme.background }]}>
-                  <View style={styles.progressBarContainer}>
-                    <View style={[styles.progressBar, { backgroundColor: theme.primary }]} />
-                  </View>
-                  <Text style={[styles.loadingText, { color: theme.text }]}>
-                    Generating scenes...
-                  </Text>
-                </View>
-              ) : (
-                <ScrollView style={styles.scenesList}>
-                  {scenes.map((scene, index) => (
-                    <View key={index} style={[styles.sceneCard, { backgroundColor: theme.card }]}>
-                      <View style={styles.sceneHeader}>
-                        <Text style={[styles.sceneTitle, { color: theme.text }]}>
-                          Scene {index + 1}
-                        </Text>
-                        <View style={styles.sceneActions}>
-                          <TouchableOpacity 
-                            style={[styles.generateImageButton, { backgroundColor: '#dc2626' }]}
-                            onPress={() => generateImage(scene)}
-                          >
-                            <Ionicons name="image" size={16} color="white" />
-                          </TouchableOpacity>
-                          <TouchableOpacity 
-                            style={styles.editSceneButton}
-                            onPress={() => setEditingScene(index)}
-                          >
-                            <Ionicons name="pencil" size={16} color={theme.primary} />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                      
-                      {editingScene === index ? (
-                        <View style={styles.sceneEditForm}>
-                          <TextInput
-                            style={[styles.sceneInput, { color: theme.text }]}
-                            multiline
-                            value={scene.scene}
-                            onChangeText={(text) => updateScene(index, { ...scene, scene: text })}
-                            placeholder="Scene description..."
-                            placeholderTextColor={theme.textSecondary}
-                          />
-                          
-                          <View style={styles.sceneDetailsGrid}>
-                            <View style={styles.detailInput}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Setting</Text>
-                              <TextInput
-                                style={[styles.smallInput, { color: theme.text }]}
-                                value={scene.setting}
-                                onChangeText={(text) => updateScene(index, { ...scene, setting: text })}
-                                placeholder="Scene setting"
-                                placeholderTextColor={theme.textSecondary}
-                              />
-                            </View>
-
-                            <View style={styles.detailInput}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Time</Text>
-                              <TextInput
-                                style={[styles.smallInput, { color: theme.text }]}
-                                value={scene.time_of_day}
-                                onChangeText={(text) => updateScene(index, { ...scene, time_of_day: text })}
-                                placeholder="Time of day"
-                                placeholderTextColor={theme.textSecondary}
-                              />
-                            </View>
-
-                            <View style={styles.detailInput}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Mood</Text>
-                              <TextInput
-                                style={[styles.smallInput, { color: theme.text }]}
-                                value={scene.mood}
-                                onChangeText={(text) => updateScene(index, { ...scene, mood: text })}
-                                placeholder="Scene mood"
-                                placeholderTextColor={theme.textSecondary}
-                              />
-                            </View>
-
-                            <View style={styles.detailInput}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Expression</Text>
-                              <TextInput
-                                style={[styles.smallInput, { color: theme.text }]}
-                                value={scene.expressiveness}
-                                onChangeText={(text) => updateScene(index, { ...scene, expressiveness: text })}
-                                placeholder="Expressiveness"
-                                placeholderTextColor={theme.textSecondary}
-                              />
-                            </View>
-                          </View>
-
-                          <TextInput
-                            style={[styles.sceneInput, { color: theme.text }]}
-                            multiline
-                            value={scene.visual_details}
-                            onChangeText={(text) => updateScene(index, { ...scene, visual_details: text })}
-                            placeholder="Visual details..."
-                            placeholderTextColor={theme.textSecondary}
-                          />
-                        </View>
-                      ) : (
-                        <View style={styles.sceneDetails}>
-                          <Text style={[styles.sceneText, { color: theme.text }]}>
-                            {scene.scene}
-                          </Text>
-                          
-                          <View style={styles.detailsGrid}>
-                            <View style={styles.detailItem}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Setting</Text>
-                              <Text style={[styles.detailValue, { color: theme.text }]}>{scene.setting}</Text>
-                            </View>
-                            <View style={styles.detailItem}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Time</Text>
-                              <Text style={[styles.detailValue, { color: theme.text }]}>{scene.time_of_day}</Text>
-                            </View>
-                            <View style={styles.detailItem}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Mood</Text>
-                              <Text style={[styles.detailValue, { color: theme.text }]}>{scene.mood}</Text>
-                            </View>
-                            <View style={styles.detailItem}>
-                              <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Expression</Text>
-                              <Text style={[styles.detailValue, { color: theme.text }]}>{scene.expressiveness}</Text>
-                            </View>
-                          </View>
-
-                          <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Visual Details</Text>
-                          <Text style={[styles.detailValue, { color: theme.text }]}>{scene.visual_details}</Text>
-                        </View>
-                      )}
-                    </View>
-                  ))}
-                </ScrollView>
-              )}
-            </View>
-
-            <View style={[styles.rightColumn, { flex: 1 }]}>
-              <View style={styles.paneHeader}>
-                <Text style={[styles.paneTitle, { color: theme.textSecondary }]}>
-                  Scene Visualizations
-                </Text>
-              </View>
-
-              <ScrollView style={styles.imageGrid}>
-                {sceneImages.map((image, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={[styles.thumbnailContainer, { marginBottom: 8 }]}
-                    onPress={() => setSelectedImage(image)}
-                  >
-                    <Image 
-                      source={{ uri: image.url }}
-                      style={styles.thumbnail}
-                    />
-                    <Text style={[styles.thumbnailLabel, { color: theme.textSecondary }]}>
-                      Scene {index + 1}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-            </View>
-
-            {selectedImage && (
-              <Modal
-                visible={!!selectedImage}
-                transparent
-                onRequestClose={() => setSelectedImage(null)}
-              >
-                <View style={styles.modalOverlay}>
-                  <View style={[styles.modalContent, { backgroundColor: theme.background }]}>
-                    <Image 
-                      source={{ uri: selectedImage.url }}
-                      style={styles.fullImage}
-                      resizeMode="contain"
-                    />
-                    <TouchableOpacity
-                      style={styles.closeButton}
-                      onPress={() => setSelectedImage(null)}
-                    >
-                      <Ionicons name="close" size={24} color={theme.text} />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </Modal>
-            )}
-          </View>
+          <SceneGenerator 
+            scenes={scenes}
+            scenePreferences={scenePreferences}
+            scriptAnalysis={scriptAnalysis}
+            content={content}
+            onNext={() => setCurrentStep(3)}
+            onUpdateScene={(index, updatedScenes) => setScenes(updatedScenes)}
+            onGenerateImage={generateImage}
+          />
         );
       case 3:
-        return (
-          <>
-            <Text style={styles.subtitle}>Audio Selection</Text>
-            <View style={[styles.placeholderContent, { backgroundColor: theme.card }]}>
-              <Ionicons name="musical-notes" size={48} color={theme.textSecondary} />
-              <Text style={[styles.placeholderText, { color: theme.textSecondary }]}>
-                Voice selection will be available after scenes are set
-              </Text>
-            </View>
-          </>
-        );
+        return <AudioSelector />;
       case 4:
-        return (
-          <>
-            <Text style={styles.subtitle}>Caption Styling</Text>
-            <View style={[styles.placeholderContent, { backgroundColor: theme.card }]}>
-              <Ionicons name="text" size={48} color={theme.textSecondary} />
-              <Text style={[styles.placeholderText, { color: theme.textSecondary }]}>
-                Caption editor will be available after audio is selected
-              </Text>
-            </View>
-          </>
-        );
+        return <CaptionEditor />;
       case 5:
-        return (
-          <>
-            <Text style={styles.subtitle}>Render Movie</Text>
-            <View style={[styles.placeholderContent, { backgroundColor: theme.card }]}>
-              <Ionicons name="film" size={48} color={theme.textSecondary} />
-              <Text style={[styles.placeholderText, { color: theme.textSecondary }]}>
-                Ready to render your movie
-              </Text>
-            </View>
-          </>
-        );
+        return <MovieRenderer />;
     }
   };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <View style={[styles.header, { 
-        borderBottomColor: theme.border,
-        backgroundColor: theme.background,
-      }]}>
-        <Text style={[styles.title, { color: theme.text }]}>MediaGen</Text>
-        <TouchableOpacity 
-          style={[styles.iconButton, { backgroundColor: theme.buttonBg }]}
-          onPress={toggleTheme}
-        >
-          <Ionicons 
-            name={isDark ? 'sunny' : 'moon'} 
-            size={24} 
-            color={theme.buttonText} 
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={[styles.stepper, { 
-        backgroundColor: theme.background,
-        borderBottomColor: theme.border 
-      }]}>
-        {WORKFLOW_STEPS.map((step) => (
-          <View 
-            key={step.id} 
-            style={[
-              styles.stepItem,
-              currentStep === step.id && styles.stepItemActive,
-              currentStep > step.id && styles.stepItemCompleted,
-            ]}
-          >
-            <Ionicons 
-              name={step.icon as any} 
-              size={24} 
-              color={currentStep >= step.id 
-                ? step.color 
-                : isDark 
-                  ? 'rgba(255,255,255,0.3)' 
-                  : 'rgba(0,0,0,0.3)'
-              } 
-            />
-            <Text style={[
-              styles.stepText,
-              { color: theme.textSecondary },
-              currentStep >= step.id && { color: theme.primary }
-            ]}>
-              {step.title}
-            </Text>
-            {step.id < WORKFLOW_STEPS.length && (
-              <View style={[
-                styles.stepConnector,
-                { backgroundColor: theme.border },
-                currentStep > step.id && { backgroundColor: theme.primary }
-              ]} />
-            )}
-          </View>
-        ))}
-      </View>
-
-      <View style={styles.editorContainer}>
+      <WorkflowStepper currentStep={currentStep} onStepChange={setCurrentStep} />
+      <View style={styles.content}>
         {renderStepContent()}
-        {error && (
-          <View style={styles.errorContainer}>
-            <Text style={styles.errorText}>{error}</Text>
-          </View>
-        )}
-        {isAnalyzing && (
-          <View style={[styles.loadingContainer, { 
-            backgroundColor: isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)' 
-          }]}>
-            <ActivityIndicator size="large" color={theme.primary} />
-            <Text style={{ marginTop: 8, color: theme.text }}>
-              Analyzing script...
-            </Text>
-          </View>
-        )}
       </View>
     </View>
   );
