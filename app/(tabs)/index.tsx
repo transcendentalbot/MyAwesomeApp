@@ -718,7 +718,7 @@ export default function Home() {
         updatedAt: new Date().toISOString(),
       };
       console.log('Created new project:', newProject);
-      router.push('/dashboard/' + newProject.id);
+      router.push(`/dashboard/${newProject.id}`);
     } catch (error) {
       console.error('Error saving:', error);
     } finally {
@@ -1046,7 +1046,7 @@ export default function Home() {
                             </View>
                           )}
 
-                          {scriptAnalysis.characters.map((char, index) => (
+                          {scriptAnalysis.characters && scriptAnalysis.characters.map((char, index) => (
                             <View key={index} style={styles.characterItem}>
                               {editingCharacter === char ? (
                                 <View style={styles.characterEdit}>
@@ -1096,17 +1096,27 @@ export default function Home() {
                         </View>
 
                         <Text style={styles.sectionTitle}>Setting:</Text>
-                        <Text style={styles.settingText}>
-                          Location: {scriptAnalysis.setting.location}
-                        </Text>
-                        <Text style={styles.settingText}>
-                          Time: {scriptAnalysis.setting.time}
-                        </Text>
+                        {scriptAnalysis?.setting ? (
+                          <>
+                            <Text style={styles.settingText}>
+                              Location: {scriptAnalysis.setting.location}
+                            </Text>
+                            <Text style={styles.settingText}>
+                              Time: {scriptAnalysis.setting.time}
+                            </Text>
+                          </>
+                        ) : (
+                          <Text style={styles.settingText}>Setting information not available.</Text>
+                        )}
 
                         <Text style={styles.sectionTitle}>Plot Points:</Text>
-                        {scriptAnalysis.plot.map((point, index) => (
-                          <Text key={index} style={styles.plotPoint}>• {point}</Text>
-                        ))}
+                        {scriptAnalysis?.plot ? (
+                          scriptAnalysis.plot.map((point, index) => (
+                            <Text key={index} style={styles.plotPoint}>• {point}</Text>
+                          ))
+                        ) : (
+                          <Text style={styles.plotPoint}>No plot points available.</Text>
+                        )}
 
                         <Text style={styles.sectionTitle}>Moral:</Text>
                         <Text style={styles.moralText}>{scriptAnalysis.moral}</Text>
