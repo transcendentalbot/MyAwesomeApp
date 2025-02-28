@@ -697,6 +697,12 @@ export default function WorkflowScreen() {
   const [sceneImages, setSceneImages] = useState<SceneImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<SceneImage | null>(null);
   const [editingScene, setEditingScene] = useState<number | null>(null);
+  const [imageSettings, setImageSettings] = useState({
+    width: 1080,
+    height: 1920,
+    resolution: 'high',
+    aspectRatio: '9:16'
+  });
 
   const handleNext = async () => {
     if (currentStep < WORKFLOW_STEPS.length) {
@@ -850,6 +856,8 @@ export default function WorkflowScreen() {
             onNext={() => setCurrentStep(3)}
             onUpdateScene={(index, updatedScenes) => setScenes(updatedScenes)}
             onGenerateImage={generateImage}
+            imageSettings={imageSettings}
+            onUpdateImageSettings={setImageSettings}
           />
         );
       case 3:
