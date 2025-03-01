@@ -75,7 +75,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
         <View style={styles.detailsSection}>
           <View style={styles.titleRow}>
             <Text style={[styles.sceneTitle, { color: theme.text }]}>
-              Scene {index + 1}: {scene.scene}
+              Scene {index + 1}: {scene.setting}
             </Text>
             <TouchableOpacity 
               style={[styles.editButton, { backgroundColor: theme.buttonBg }]} 

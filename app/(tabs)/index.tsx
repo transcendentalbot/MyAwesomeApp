@@ -8,7 +8,7 @@ import { WorkflowStepper } from '../../src/components/workflow/WorkflowStepper';
 import { ScriptEditor } from '../../src/components/workflow/ScriptEditor';
 import { SceneGenerator } from '../../src/components/workflow/SceneGenerator';
 import { AudioSelector } from '../../src/components/workflow/AudioSelector';
-import { CaptionEditor } from '../../src/components/workflow/CaptionEditor';
+import { CaptionsEditor, CaptionSettings } from '../../src/components/workflow/CaptionsEditor';
 import { MovieRenderer } from '../../src/components/workflow/MovieRenderer';
 
 const WORKFLOW_STEPS = [
@@ -863,10 +863,17 @@ export default function WorkflowScreen() {
       case 3:
         return <AudioSelector content={content} />;
       case 4:
-        return <CaptionEditor />;
+        return <CaptionsEditor onSave={handleSaveCaptions} onBack={handleBack} />;
       case 5:
         return <MovieRenderer />;
     }
+  };
+
+  const handleSaveCaptions = (settings: CaptionSettings) => {
+    // Handle saving the caption settings
+    console.log('Caption settings saved:', settings);
+    // Move to next step or handle as needed
+    setCurrentStep(prev => prev + 1);
   };
 
   return (

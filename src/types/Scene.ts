@@ -8,4 +8,6 @@ export interface Scene {
   visual_details: string;
   timeline: string;
   imageUrl?: string;
+  imageUrls?: string[];  // Array to store multiple image URLs per scene
+  generatedImageCount?: number;  // Track number of images generated for this scene
 } 

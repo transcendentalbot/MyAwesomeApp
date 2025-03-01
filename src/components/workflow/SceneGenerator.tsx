@@ -2,24 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Image, TextInput, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/ThemeContext';
-import { Scene, ScenePreferences } from '../../types/Scene';
+import { Scene } from '../../types/Scene';
 import axios from 'axios';
 import { SceneCard } from './SceneCard';
 
 interface ImageSettings {
   width: number;
   height: number;
-  resolution: 'low' | 'medium' | 'high';
   aspectRatio: string;
+  engine: 'titan-generator' | 'nova-canvas';
 }
 
 interface SceneGeneratorProps {
   scenes: Scene[];
-  scenePreferences: ScenePreferences;
+  scenePreferences: any;
   scriptAnalysis: any;
   content: string;
   onNext: () => void;
-  onUpdateScene: (index: number, scene: Scene) => void;
+  onUpdateScene: (index: number, scenes: Scene[] | Scene) => void;
   onGenerateImage: (scene: Scene, index: number, settings: ImageSettings) => void;
 }
 
@@ -49,8 +49,8 @@ export function SceneGenerator({
   const [imageSettings, setImageSettings] = useState<ImageSettings>({
     width: 768,
     height: 1152,
-    resolution: 'high',
     aspectRatio: '3:2',
+    engine: 'titan-generator'
   });
 
   const aspectRatios = [
@@ -110,6 +110,12 @@ export function SceneGenerator({
   };
 
   const handleGenerateImage = async (scene: Scene, index: number) => {
+    const currentCount = scene.generatedImageCount || 0;
+    if (currentCount >= 3) {
+      setError('You have reached the maximum limit of 3 images for this scene.');
+      return;
+    }
+
     setLoadingImages(prev => ({ ...prev, [index]: true }));
     
     try {
@@ -120,7 +126,7 @@ export function SceneGenerator({
           imageSettings: {
             width: imageSettings.width,
             height: imageSettings.height,
-            resolution: imageSettings.resolution
+            engine: imageSettings.engine
           }
         },
         {
@@ -131,7 +137,14 @@ export function SceneGenerator({
       );
 
       if (response.data.status === 'success') {
-        const updatedScene = { ...scene, imageUrl: response.data.image_url };
+        const imageUrls = scene.imageUrls || [];
+        imageUrls.push(response.data.image_url);
+        
+        const updatedScene = { 
+          ...scene, 
+          imageUrls,
+          generatedImageCount: currentCount + 1
+        };
         handleUpdateScene(index, updatedScene);
       }
     } catch (error) {
@@ -169,6 +182,74 @@ export function SceneGenerator({
     }));
   };
 
+  const renderImageSettingsToolbar = () => (
+    <View style={[styles.settingsToolbar, { backgroundColor: theme.card }]}>
+      <View style={styles.toolbarContent}>
+        <View style={styles.toolbarSection}>
+          <Text style={[styles.settingLabel, { color: theme.text }]}>Engine:</Text>
+          <View style={styles.engineOptions}>
+            <TouchableOpacity
+              style={[
+                styles.engineOption,
+                imageSettings.engine === 'titan-generator' && { backgroundColor: theme.primary }
+              ]}
+              onPress={() => setImageSettings(prev => ({ ...prev, engine: 'titan-generator' }))}
+            >
+              <Text style={[
+                styles.engineOptionText,
+                imageSettings.engine === 'titan-generator' && { color: '#fff' }
+              ]}>Titan</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity
+              style={[
+                styles.engineOption,
+                imageSettings.engine === 'nova-canvas' && { backgroundColor: theme.primary }
+              ]}
+              onPress={() => setImageSettings(prev => ({ ...prev, engine: 'nova-canvas' }))}
+            >
+              <Text style={[
+                styles.engineOptionText,
+                imageSettings.engine === 'nova-canvas' && { color: '#fff' }
+              ]}>Nova</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.toolbarDivider} />
+
+        <View style={styles.toolbarSection}>
+          <Text style={[styles.settingLabel, { color: theme.text }]}>Format:</Text>
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            style={styles.aspectRatioScroll}
+          >
+            {aspectRatios.map(ratio => (
+              <TouchableOpacity
+                key={ratio.value}
+                style={[
+                  styles.aspectRatioChip,
+                  imageSettings.width === ratio.width && 
+                  imageSettings.height === ratio.height && 
+                  { backgroundColor: theme.primary }
+                ]}
+                onPress={() => handleAspectRatioChange(ratio)}
+              >
+                <Text style={[
+                  styles.chipText,
+                  imageSettings.width === ratio.width && 
+                  imageSettings.height === ratio.height && 
+                  { color: '#fff' }
+                ]}>{ratio.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+    </View>
+  );
+
   const renderSceneCard = (scene: Scene, index: number) => (
     <View key={index} style={[styles.sceneCard, { backgroundColor: theme.card }]}>
       <View style={styles.cardContent}>
@@ -178,62 +259,55 @@ export function SceneGenerator({
             {editingSceneIndex === index ? (
               <TextInput
                 style={[styles.editInput, { color: theme.text }]}
-                value={scene.scene}
-                onChangeText={(value) => handleSceneFieldUpdate(index, 'scene', value)}
-                placeholder="Scene title"
+                value={scene.setting}
+                onChangeText={(value) => handleSceneFieldUpdate(index, 'setting', value)}
+                placeholder="Scene setting"
               />
             ) : (
               <Text style={[styles.sceneTitle, { color: theme.text }]}>
-                Scene {index + 1}: {scene.scene}
+                Scene {index + 1}: {scene.setting}
               </Text>
             )}
-            <TouchableOpacity
-              style={[styles.editButton, { backgroundColor: theme.buttonBg }]}
-              onPress={() => handleEditScene(index)}
-            >
-              <Ionicons 
-                name={editingSceneIndex === index ? "save" : "pencil"} 
-                size={20} 
-                color={theme.primary}
-              />
-            </TouchableOpacity>
+            <View style={styles.sceneActions}>
+              <TouchableOpacity
+                style={[styles.actionButton, { backgroundColor: theme.buttonBg }]}
+                onPress={() => handleEditScene(index)}
+              >
+                <Ionicons 
+                  name={editingSceneIndex === index ? "save" : "pencil"} 
+                  size={20} 
+                  color={theme.primary}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
 
           <View style={styles.detailsGrid}>
             {[
-              { label: 'Setting', field: 'setting' },
+              { label: 'Scene Description', field: 'scene' },
               { label: 'Time', field: 'time_of_day' },
+              { label: 'Background', field: 'background' },
               { label: 'Mood', field: 'mood' },
-              { label: 'Expression', field: 'expressiveness' }
+              { label: 'Expression', field: 'expressiveness' },
+              { label: 'Visual Details', field: 'visual_details' }
             ].map(({ label, field }) => (
               <View key={field} style={styles.detailRow}>
                 <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>{label}:</Text>
                 {editingSceneIndex === index ? (
                   <TextInput
-                    style={[styles.editInput, { color: theme.text }]}
+                    style={[styles.editInput, { color: theme.text, flex: 1 }]}
                     value={scene[field as keyof Scene] as string}
                     onChangeText={(value) => handleSceneFieldUpdate(index, field as keyof Scene, value)}
+                    multiline={field === 'visual_details'}
                   />
                 ) : (
-                  <Text style={[styles.detailText, { color: theme.text }]}>
+                  <Text style={[styles.detailText, { color: theme.text, flex: 1 }]}>
                     {scene[field as keyof Scene]}
                   </Text>
                 )}
               </View>
             ))}
           </View>
-
-          <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>Visual Details:</Text>
-          {editingSceneIndex === index ? (
-            <TextInput
-              style={[styles.editInput, { color: theme.text, height: 80 }]}
-              value={scene.visual_details}
-              onChangeText={(value) => handleSceneFieldUpdate(index, 'visual_details', value)}
-              multiline
-            />
-          ) : (
-            <Text style={[styles.detailText, { color: theme.text }]}>{scene.visual_details}</Text>
-          )}
 
           {editingSceneIndex === index && (
             <View style={styles.editActions}>
@@ -253,14 +327,24 @@ export function SceneGenerator({
           )}
         </View>
 
-        {/* Right side - Image */}
+        {/* Right side - Images */}
         <View style={styles.imageSection}>
-          {scene.imageUrl ? (
-            <Image 
-              source={{ uri: scene.imageUrl }} 
-              style={styles.sceneImage}
-              resizeMode="cover"
-            />
+          <View style={styles.imageHeader}>
+            <Text style={[styles.imageCount, { color: theme.textSecondary }]}>
+              Images: {scene.generatedImageCount || 0}/3
+            </Text>
+          </View>
+          {scene.imageUrls && scene.imageUrls.length > 0 ? (
+            <ScrollView horizontal style={styles.imageScroll}>
+              {scene.imageUrls.map((url, imgIndex) => (
+                <Image 
+                  key={imgIndex}
+                  source={{ uri: url }} 
+                  style={styles.sceneImage}
+                  resizeMode="cover"
+                />
+              ))}
+            </ScrollView>
           ) : (
             <View style={[styles.imagePlaceholder, { backgroundColor: theme.buttonBg }]}>
               <TouchableOpacity
@@ -285,15 +369,8 @@ export function SceneGenerator({
   );
 
   const renderNavigation = () => (
-    <View style={styles.navigationHeader}>
-      <View style={styles.progressIndicator}>
-        <Text style={[styles.progressText, { color: theme.text }]}>
-          Step 2 of 5: Scene Generation
-        </Text>
-        <View style={styles.progressBar}>
-          <View style={[styles.progressFill, { width: '40%', backgroundColor: theme.primary }]} />
-        </View>
-      </View>
+    <View style={styles.header}>
+      <Text style={[styles.headerTitle, { color: theme.text }]}>Scene Generation</Text>
       <TouchableOpacity
         style={[styles.nextButton, { backgroundColor: theme.primary }]}
         onPress={onNext}
@@ -303,152 +380,6 @@ export function SceneGenerator({
       </TouchableOpacity>
     </View>
   );
-
-  const renderImageSettingsModal = () => {
-    return (
-      <Modal
-        visible={showImageSettings}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setShowImageSettings(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalContent, { backgroundColor: theme.card }]}>
-            <View style={styles.modalHeader}>
-              <Text style={[styles.modalTitle, { color: theme.text }]}>Choose Format</Text>
-              <TouchableOpacity onPress={() => setShowImageSettings(false)}>
-                <Ionicons name="close" size={24} color={theme.text} />
-              </TouchableOpacity>
-            </View>
-            
-            <View style={styles.formatSelector}>
-              <Text style={[styles.formatLabel, { color: theme.textSecondary }]}>Image Format:</Text>
-              <ScrollView 
-                horizontal 
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.formatOptions}
-              >
-                <TouchableOpacity
-                  style={[
-                    styles.formatChip, 
-                    imageSettings.width === 1024 && imageSettings.height === 1024 && 
-                      { backgroundColor: theme.primary }
-                  ]}
-                  onPress={() => setImageSettings(prev => ({
-                    ...prev, width: 1024, height: 1024, aspectRatio: '1:1'
-                  }))}
-                >
-                  <Text style={[
-                    styles.formatChipText, 
-                    imageSettings.width === 1024 && imageSettings.height === 1024 && { color: '#fff' }
-                  ]}>Square</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                  style={[
-                    styles.formatChip, 
-                    imageSettings.width === 768 && imageSettings.height === 1152 && 
-                      { backgroundColor: theme.primary }
-                  ]}
-                  onPress={() => setImageSettings(prev => ({
-                    ...prev, width: 768, height: 1152, aspectRatio: '2:3'
-                  }))}
-                >
-                  <Text style={[
-                    styles.formatChipText, 
-                    imageSettings.width === 768 && imageSettings.height === 1152 && { color: '#fff' }
-                  ]}>Portrait</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                  style={[
-                    styles.formatChip, 
-                    imageSettings.width === 1152 && imageSettings.height === 768 && 
-                      { backgroundColor: theme.primary }
-                  ]}
-                  onPress={() => setImageSettings(prev => ({
-                    ...prev, width: 1152, height: 768, aspectRatio: '3:2'
-                  }))}
-                >
-                  <Text style={[
-                    styles.formatChipText, 
-                    imageSettings.width === 1152 && imageSettings.height === 768 && { color: '#fff' }
-                  ]}>Landscape</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                  style={[
-                    styles.formatChip, 
-                    imageSettings.width === 1792 && imageSettings.height === 1024 && 
-                      { backgroundColor: theme.primary }
-                  ]}
-                  onPress={() => setImageSettings(prev => ({
-                    ...prev, width: 1792, height: 1024, aspectRatio: '16:9'
-                  }))}
-                >
-                  <Text style={[
-                    styles.formatChipText, 
-                    imageSettings.width === 1792 && imageSettings.height === 1024 && { color: '#fff' }
-                  ]}>Widescreen</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                  style={[
-                    styles.formatChip, 
-                    imageSettings.width === 1024 && imageSettings.height === 1792 && 
-                      { backgroundColor: theme.primary }
-                  ]}
-                  onPress={() => setImageSettings(prev => ({
-                    ...prev, width: 1024, height: 1792, aspectRatio: '9:16'
-                  }))}
-                >
-                  <Text style={[
-                    styles.formatChipText, 
-                    imageSettings.width === 1024 && imageSettings.height === 1792 && { color: '#fff' }
-                  ]}>Vertical</Text>
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
-            
-            <View style={styles.qualitySelector}>
-              <Text style={[styles.qualitySelectorLabel, { color: theme.text }]}>Quality</Text>
-              <View style={styles.qualityOptions}>
-                {['low', 'medium', 'high'].map(quality => (
-                  <TouchableOpacity
-                    key={quality}
-                    style={[
-                      styles.qualityPill,
-                      { 
-                        backgroundColor: imageSettings.resolution === quality ? 
-                          theme.primary : theme.buttonBg,
-                      }
-                    ]}
-                    onPress={() => setImageSettings(prev => ({ ...prev, resolution: quality as any }))}
-                  >
-                    <Text 
-                      style={[
-                        styles.qualityPillText, 
-                        { color: imageSettings.resolution === quality ? '#fff' : theme.text }
-                      ]}
-                    >
-                      {quality.charAt(0).toUpperCase() + quality.slice(1)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-            
-            <TouchableOpacity 
-              style={[styles.doneButton, { backgroundColor: theme.primary }]}
-              onPress={() => setShowImageSettings(false)}
-            >
-              <Text style={styles.doneButtonText}>Done</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-    );
-  };
 
   const renderEditModal = () => {
     if (editingSceneIndex === null) return null;
@@ -471,34 +402,61 @@ export function SceneGenerator({
               </TouchableOpacity>
             </View>
             
-            <Text style={[styles.inputLabel, { color: theme.text }]}>Scene</Text>
-            <TextInput
-              style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
-              value={scene.scene}
-              onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'scene', value)}
-            />
-            
-            <Text style={[styles.inputLabel, { color: theme.text }]}>Setting</Text>
-            <TextInput
-              style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
-              value={scene.setting}
-              onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'setting', value)}
-            />
-            
-            <Text style={[styles.inputLabel, { color: theme.text }]}>Time of Day</Text>
-            <TextInput
-              style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
-              value={scene.time_of_day}
-              onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'time_of_day', value)}
-            />
-            
-            <Text style={[styles.inputLabel, { color: theme.text }]}>Visual Details</Text>
-            <TextInput
-              style={[styles.textInput, { color: theme.text, borderColor: theme.border, height: 80 }]}
-              value={scene.visual_details}
-              onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'visual_details', value)}
-              multiline
-            />
+            <ScrollView style={styles.formScrollView}>
+              <View style={styles.formContainer}>
+                <Text style={[styles.inputLabel, { color: theme.text }]}>Scene Description</Text>
+                <TextInput
+                  style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
+                  value={scene.scene}
+                  onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'scene', value)}
+                  multiline
+                  numberOfLines={3}
+                />
+                
+                <Text style={[styles.inputLabel, { color: theme.text }]}>Setting</Text>
+                <TextInput
+                  style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
+                  value={scene.setting}
+                  onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'setting', value)}
+                />
+                
+                <Text style={[styles.inputLabel, { color: theme.text }]}>Time of Day</Text>
+                <TextInput
+                  style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
+                  value={scene.time_of_day}
+                  onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'time_of_day', value)}
+                />
+                
+                <Text style={[styles.inputLabel, { color: theme.text }]}>Background</Text>
+                <TextInput
+                  style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
+                  value={scene.background}
+                  onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'background', value)}
+                />
+                
+                <Text style={[styles.inputLabel, { color: theme.text }]}>Mood</Text>
+                <TextInput
+                  style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
+                  value={scene.mood}
+                  onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'mood', value)}
+                />
+                
+                <Text style={[styles.inputLabel, { color: theme.text }]}>Expressiveness</Text>
+                <TextInput
+                  style={[styles.textInput, { color: theme.text, borderColor: theme.border }]}
+                  value={scene.expressiveness}
+                  onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'expressiveness', value)}
+                />
+                
+                <Text style={[styles.inputLabel, { color: theme.text }]}>Visual Details</Text>
+                <TextInput
+                  style={[styles.textInput, { color: theme.text, borderColor: theme.border, height: 80 }]}
+                  value={scene.visual_details}
+                  onChangeText={(value) => handleSceneFieldUpdate(editingSceneIndex, 'visual_details', value)}
+                  multiline
+                />
+              </View>
+            </ScrollView>
             
             <View style={styles.modalActions}>
               <TouchableOpacity 
@@ -523,106 +481,10 @@ export function SceneGenerator({
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <View style={styles.header}>
-        <Text style={[styles.headerTitle, { color: theme.text }]}>Scene Generation</Text>
-        <TouchableOpacity
-          style={[styles.nextButton, { backgroundColor: theme.primary }]}
-          onPress={onNext}
-        >
-          <Text style={styles.nextButtonText}>Next</Text>
-          <Ionicons name="arrow-forward" size={18} color="#fff" />
-        </TouchableOpacity>
-      </View>
+      {renderNavigation()}
       
-      <View style={[styles.formatSelector, { backgroundColor: theme.card, borderColor: theme.border }]}>
-        <Text style={[styles.formatLabel, { color: theme.textSecondary }]}>Image Format:</Text>
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.formatOptions}
-        >
-          <TouchableOpacity
-            style={[
-              styles.formatChip, 
-              imageSettings.width === 1024 && imageSettings.height === 1024 && 
-                { backgroundColor: theme.primary }
-            ]}
-            onPress={() => setImageSettings(prev => ({
-              ...prev, width: 1024, height: 1024, aspectRatio: '1:1'
-            }))}
-          >
-            <Text style={[
-              styles.formatChipText, 
-              imageSettings.width === 1024 && imageSettings.height === 1024 && { color: '#fff' }
-            ]}>Square</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={[
-              styles.formatChip, 
-              imageSettings.width === 768 && imageSettings.height === 1152 && 
-                { backgroundColor: theme.primary }
-            ]}
-            onPress={() => setImageSettings(prev => ({
-              ...prev, width: 768, height: 1152, aspectRatio: '2:3'
-            }))}
-          >
-            <Text style={[
-              styles.formatChipText, 
-              imageSettings.width === 768 && imageSettings.height === 1152 && { color: '#fff' }
-            ]}>Portrait</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={[
-              styles.formatChip, 
-              imageSettings.width === 1152 && imageSettings.height === 768 && 
-                { backgroundColor: theme.primary }
-            ]}
-            onPress={() => setImageSettings(prev => ({
-              ...prev, width: 1152, height: 768, aspectRatio: '3:2'
-            }))}
-          >
-            <Text style={[
-              styles.formatChipText, 
-              imageSettings.width === 1152 && imageSettings.height === 768 && { color: '#fff' }
-            ]}>Landscape</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={[
-              styles.formatChip, 
-              imageSettings.width === 1792 && imageSettings.height === 1024 && 
-                { backgroundColor: theme.primary }
-            ]}
-            onPress={() => setImageSettings(prev => ({
-              ...prev, width: 1792, height: 1024, aspectRatio: '16:9'
-            }))}
-          >
-            <Text style={[
-              styles.formatChipText, 
-              imageSettings.width === 1792 && imageSettings.height === 1024 && { color: '#fff' }
-            ]}>Widescreen</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={[
-              styles.formatChip, 
-              imageSettings.width === 1024 && imageSettings.height === 1792 && 
-                { backgroundColor: theme.primary }
-            ]}
-            onPress={() => setImageSettings(prev => ({
-              ...prev, width: 1024, height: 1792, aspectRatio: '9:16'
-            }))}
-          >
-            <Text style={[
-              styles.formatChipText, 
-              imageSettings.width === 1024 && imageSettings.height === 1792 && { color: '#fff' }
-            ]}>Vertical</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-
+      {renderImageSettingsToolbar()}
+      
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={theme.primary} />
@@ -630,83 +492,156 @@ export function SceneGenerator({
         </View>
       ) : (
         <ScrollView style={styles.scenesList}>
-          {localScenes.map((scene, index) => (
-            <SceneCard
-              key={index}
-              scene={scene}
-              index={index}
-              isEditing={editingSceneIndex === index}
-              onEdit={() => handleEditScene(index)}
-              onUpdate={(updatedScene) => handleUpdateScene(index, updatedScene)}
-              onGenerateImage={() => handleGenerateImage(scene, index)}
-              isGeneratingImage={loadingImages[index]}
-              theme={theme}
-            />
-          ))}
+          {localScenes.map((scene, index) => renderSceneCard(scene, index))}
         </ScrollView>
       )}
-      {renderImageSettingsModal()}
       {renderEditModal()}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
-  headerTitle: { fontSize: 22, fontWeight: 'bold' },
-  nextButton: { flexDirection: 'row', alignItems: 'center', padding: 10, borderRadius: 8 },
-  nextButtonText: { color: '#fff', fontWeight: '600', marginRight: 8 },
-  settingsToolbar: {
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 8,
     marginBottom: 16,
   },
-  toolbarSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
-  toolbarDivider: {
-    width: 1,
-    height: 24,
-    backgroundColor: '#ddd',
-    marginHorizontal: 12,
+  scenesList: {
+    flex: 1,
   },
-  aspectRatioScroll: {
-    maxWidth: 180,
-  },
-  aspectRatioChip: {
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 16,
-    backgroundColor: '#eee',
-    marginRight: 6,
-  },
-  resolutionChips: {
-    flexDirection: 'row',
-    gap: 4,
-  },
-  resolutionChip: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#eee',
+  loadingContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  chipText: {
+  sceneCard: {
+    borderRadius: 12,
+    marginBottom: 16,
+    padding: 16,
+  },
+  cardContent: {
+    flexDirection: 'row',
+    gap: 16,
+  },
+  sceneDetails: {
+    flex: 1,
+  },
+  sceneHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  sceneTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  detailsGrid: {
+    marginTop: 12,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  detailLabel: {
+    fontSize: 14,
+    marginRight: 8,
+    fontWeight: '500',
+  },
+  detailText: {
+    fontSize: 14,
+  },
+  editInput: {
+    fontSize: 14,
+    padding: 4,
+    borderRadius: 4,
+    backgroundColor: 'rgba(0,0,0,0.05)',
+  },
+  editActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 8,
+    marginTop: 12,
+  },
+  editActionButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+  },
+  editActionButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  imageSection: {
+    width: 200,
+    aspectRatio: 3/4,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  imagePlaceholder: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  generateImageButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    padding: 12,
+    borderRadius: 8,
+  },
+  generateImageText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  sceneImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 8,
+  },
+  nextButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  nextButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  sceneActions: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  actionButton: {
+    padding: 8,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageCount: {
     fontSize: 12,
     fontWeight: '500',
   },
-  dimensionsText: {
-    fontSize: 12,
-    fontWeight: '500',
+  imageScroll: {
+    flexDirection: 'row',
+    gap: 8,
   },
-  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  scenesList: { flex: 1 },
   modalOverlay: {
     flex: 1,
     justifyContent: 'center',
@@ -728,191 +663,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
-  formatSelector: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    borderRadius: 8,
-    marginBottom: 16,
-  },
-  formatLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  formatOptions: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  formatChip: {
-    padding: 8,
-    borderRadius: 8,
-    backgroundColor: '#eee',
-  },
-  formatChipText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  qualitySelector: {
-    marginTop: 16,
-  },
-  qualitySelectorLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  qualityOptions: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 8,
-  },
-  qualityPill: {
-    flex: 1,
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: '#eee',
-    alignItems: 'center',
-  },
-  qualityPillText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  doneButton: {
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  doneButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  sceneCard: {
-    marginBottom: 16,
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  cardContent: {
-    flexDirection: 'row',
-  },
-  sceneDetails: {
-    flex: 1,
-    padding: 16,
-  },
-  sceneHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  sceneTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  detailsGrid: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 16,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  detailLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  detailText: {
-    fontSize: 12,
-  },
-  imageSection: {
-    width: 120,
-    height: 120,
-    marginLeft: 16,
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  sceneImage: {
-    width: '100%',
-    height: '100%',
-  },
-  imagePlaceholder: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  generateImageButton: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  generateImageText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  editInput: {
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-  },
-  editButton: {
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-  },
-  editActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  editActionButton: {
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  editActionButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  navigationHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  progressIndicator: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  progressText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  progressBar: {
-    height: 12,
-    backgroundColor: '#ddd',
-    borderRadius: 6,
-    flex: 1,
-    marginHorizontal: 8,
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: '#000',
-    borderRadius: 6,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 16,
-  },
-  inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    marginBottom: 4,
-  },
   modalActions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -930,5 +680,81 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: '48%',
     alignItems: 'center',
+  },
+  formScrollView: {
+    maxHeight: 200,
+  },
+  formContainer: {
+    padding: 16,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 16,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 4,
+  },
+  settingsToolbar: {
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  toolbarContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  toolbarSection: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  settingLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  engineOptions: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  engineOption: {
+    padding: 8,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  engineOptionText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  toolbarDivider: {
+    width: 1,
+    height: 24,
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  aspectRatioScroll: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  aspectRatioChip: {
+    padding: 8,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  chipText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  imageHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
   },
 }); 
