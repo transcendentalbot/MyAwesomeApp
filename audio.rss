@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+   <channel>
+      <title>Document History for Amazon Polly</title>
+      <link>https://docs.aws.amazon.com/polly/latest/dg/</link>
+      <description>A RSS feed containing the latest updates on https://docs.aws.amazon.com/polly/latest/dg/.</description>
+      <language>en-us</language>
+      <atom:link href="https://docs.aws.amazon.com/polly/latest/dg/doc-history.rss"
+                 rel="self"
+                 type="application/rss+xml"/>
+      <lastBuildDate>Thu, 27 Feb 2025 09:07:37 GMT</lastBuildDate>
+      <item>
+         <title>New region added for neural and standard voices</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly is now available in the Europe (Spain)
+                    AWS Region. This Region supports neural TTS (NTTS) and standard voices. For
+                    more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural voices&lt;/a&gt; and &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/standard-voices.html"&gt;Standard voices&lt;/a&gt;.</description>
+         <pubDate>Tue, 18 Feb 2025 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_region_added_for_neural_and_standard_voices_2025-02-18</guid>
+      </item>
+      <item>
+         <title>New voice added for neural text-to-speech</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides one additional English (Singaporean) voice: Jasmine. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 11 Feb 2025 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_neural_text-to-speech_2025-02-11</guid>
+      </item>
+      <item>
+         <title>New voices added for generative text-to-speech</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides seven new generative 
+              voices: Pedro, AndrÃ©s, Sergio, Daniel, Kajal, RÃ©mi, Bianca. 
+              See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/generative-voices.html"&gt;Generative
+                voices&lt;/a&gt; for a list of generative TTS voices.</description>
+         <pubDate>Thu, 21 Nov 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_generative_text-to-speech_2024-11-21</guid>
+      </item>
+      <item>
+         <title>New long-form voices added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides more long-form voices. One additional English (US) and two new Spanish (Spain) long-form voices were added: Patrick, Alba, and RaÃºl.
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/long-form-voices.html"&gt;Long-form
+                        voices&lt;/a&gt; for a list of all long-form voices.</description>
+         <pubDate>Thu, 14 Nov 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_long-form_voices_added_2024-11-14</guid>
+      </item>
+      <item>
+         <title>New voices added for generative text-to-speech</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides six new generative 
+                    voices: Ayanda, LÃ©a, Lucia, MÃ­a, Lupe, and Vicki. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/generative-voices.html"&gt;Generative
+                        voices&lt;/a&gt; for a list of generative TTS voices.</description>
+         <pubDate>Wed, 6 Nov 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_generative_text-to-speech_2024-11-06</guid>
+      </item>
+      <item>
+         <title>New voices added for generative text-to-speech</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides four new generative 
+                    voices: Olivia, Danielle, Joanna, and Stephen. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/generative-voices.html"&gt;Generative
+                        voices&lt;/a&gt; for a list of generative TTS voices.</description>
+         <pubDate>Thu, 10 Oct 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_generative_text-to-speech_2024-10-10</guid>
+      </item>
+      <item>
+         <title>New languages added for text-to-speech</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides two new TTS 
+                    languages: Czech (cs-CZ) and German (Swiss) (de-CH). 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/supported-languages.html"&gt;Supported languages&lt;/a&gt; for a list of languages.</description>
+         <pubDate>Thu, 26 Sep 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_languages_added_for_text-to-speech_2024-09-26</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides two new NTTS 
+                    voices: Jitka and Sabrina. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 27 Aug 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2024-08-27</guid>
+      </item>
+      <item>
+         <title>New generative voice engine added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now offers a generative voice engine 
+                    designed for longer content, with three English voices 
+                    in a generative variant: Amy, Matthew, and Ruth. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/generative-voices.html"&gt;Generative
+                        voices&lt;/a&gt; for more information.</description>
+         <pubDate>Thu, 28 Mar 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_generative_voice_engine_added_2024-03-28</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the NTTS Turkish 
+                    voice Burcu. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Wed, 14 Feb 2024 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2024-02-14</guid>
+      </item>
+      <item>
+         <title>New long-form voice engine added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now offers a long-form voice engine 
+                    designed for longer content, with three en-US voices: 
+                    Danielle, Gregory, and Ruth. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/long-form-voices.html"&gt;Long-form
+                        voices&lt;/a&gt; for more information.</description>
+         <pubDate>Thu, 16 Nov 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_long-form_voice_engine_added_2023-11-16</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides two new NTTS US English 
+                    voices: Danielle and Gregory. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Thu, 5 Oct 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2023-10-05</guid>
+      </item>
+      <item>
+         <title>Amazon Polly for Windows</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>The Amazon Polly Windows Speech Application 
+                    Programming Interface (SAPI) plugin will 
+                    no longer be supported.</description>
+         <pubDate>Tue, 26 Sep 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#Amazon_Polly_for_Windows_2023-09-26</guid>
+      </item>
+      <item>
+         <title>Updated quota guidance for Amazon Polly</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Updated Amazon Polly quotas guide. Added examples and 
+                    clarification of terms.
+                    Refer to &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/limits.html"&gt;Quotas in Amazon Polly&lt;/a&gt; 
+                    for the updates.</description>
+         <pubDate>Thu, 17 Aug 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#Updated_quota_guidance_for_Amazon_Polly_2023-08-17</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Gulf Arabic NTTS voice Zayd. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Wed, 16 Aug 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2023-08-16</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Belgian French NTTS voice Isabelle. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 1 Aug 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2023-08-01</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Belgian Dutch (Flemish) NTTS voice Lisa. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Wed, 7 Jun 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2023-06-07</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly now provides two new NTTS voices: 
+                    Irish English (Niamh), and Danish (Sofie).
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.
+                </description>
+         <pubDate>Tue, 30 May 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2023-05-30</guid>
+      </item>
+      <item>
+         <title>Updated the IAM guidance for Amazon Polly</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Updated guide to align with the IAM best practices. 
+For more information, see &lt;a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"&gt;Security best practices in IAM&lt;/a&gt;.</description>
+         <pubDate>Wed, 19 Apr 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#Updated_the_IAM_guidance_for_Amazon_Polly_2023-04-19</guid>
+      </item>
+      <item>
+         <title>WordPress update</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    The Amazon Polly WordPress plugin will no longer be supported.
+                </description>
+         <pubDate>Thu, 6 Apr 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#WordPress_update_2023-04-06</guid>
+      </item>
+      <item>
+         <title>New Region added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly is now available in the Asia Pacific (Osaka)
+                    AWS Region. This Region supports neural TTS (NTTS). For
+                    more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Feature and Region Compatibility&lt;/a&gt; for a list of
+                    regions that support NTTS.
+                </description>
+         <pubDate>Wed, 5 Apr 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_Region_added_2023-04-05</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly now provides two new Japanese NTTS voices: 
+                    Kazuha and Tomoko. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.
+                </description>
+         <pubDate>Tue, 7 Feb 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2023-02-07</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly now provides two new US English NTTS voices: 
+                    Stephen and Ruth. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.
+                </description>
+         <pubDate>Tue, 31 Jan 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2023-01-31</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly now provides new NTTS voices for: 
+                    Brazilian Portuguese (Thiago), 
+                    Castilian Spanish (Sergio), French (RÃ©mi),
+                    Italian (Adriano), and Mexican Spanish (AndrÃ©s). 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.
+                </description>
+         <pubDate>Tue, 24 Jan 2023 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2023-01-24</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly now provides NTTS voices for Arabic (Hala)
+                    and Polish (Ola). 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.
+                </description>
+         <pubDate>Thu, 17 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2022-11-17</guid>
+      </item>
+      <item>
+         <title>Release AWS PrivateLink support</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly now provides AWS PrivateLink support.
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/using-polly-with-vpc-endpoints.html"&gt;
+                        Using Amazon Polly with VPC endpoints&lt;/a&gt; to learn more.
+                </description>
+         <pubDate>Wed, 9 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#Release_AWS_PrivateLink_support_2022-11-09</guid>
+      </item>
+      <item>
+         <title>New voices and languages added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>
+                    Amazon Polly now provides NTTS voices for Finnish (Suvi), 
+                    Norwegian (Ida), and Swedish (Elin). 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.
+                </description>
+         <pubDate>Tue, 8 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_and_languages_added_for_NTTS_2022-11-08</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Dutch NTTS voice Laura. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Wed, 2 Nov 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2022-11-02</guid>
+      </item>
+      <item>
+         <title>New Region added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly is now available in the Europe (Paris)
+                    AWS Region. This Region supports neural TTS (NTTS). For
+                    more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Feature and Region Compatibility&lt;/a&gt; for a list of
+                    regions that support NTTS.</description>
+         <pubDate>Thu, 22 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_Region_added_2022-09-22</guid>
+      </item>
+      <item>
+         <title>New voice and language added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Cantonese NTTS voice Hiujin.
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 20 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_and_language_added_for_NTTS_2022-09-20</guid>
+      </item>
+      <item>
+         <title>New Region added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly is now available in the Asia Pacific (Mumbai)
+                    AWS Region. This Region supports neural TTS (NTTS). For
+                    more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Feature and Region Compatibility&lt;/a&gt; for a list of
+                    regions that support NTTS.</description>
+         <pubDate>Thu, 1 Sep 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_Region_added_2022-09-01</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Mandarin voice Zhiyu as an NTTS voice. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 23 Aug 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2022-08-23</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Hindi NTTS voice Kajal. 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Wed, 27 Jul 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2022-07-27</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides NTTS voices for US Spanish (Pedro),
+                    German (Daniel), Canadian French (Liam), and UK English (Arthur). 
+                    See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 28 Jun 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2022-06-28</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Portuguese (Brazilian)
+                    voice VitÃ³ria as an NTTS voice. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Wed, 27 Apr 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2022-04-27</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Portuguese (European)
+                    voice InÃªs as an NTTS voice. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 26 Apr 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2022-04-26</guid>
+      </item>
+      <item>
+         <title>New voice and language added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the German (Austrian) language
+                    and the NTTS voice Hannah. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 19 Apr 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_and_language_added_for_NTTS_2022-04-19</guid>
+      </item>
+      <item>
+         <title>New voices and language added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Spanish (Mexican) voice Mia as
+                    an NTTS voice. A new language, Catalan, was added
+                    along with the NTTS voice Arlet. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Tue, 22 Mar 2022 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_and_language_added_for_NTTS_2022-03-22</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Japanese voice Takumi as
+                    an NTTS voice. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Mon, 6 Dec 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2021-12-06</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the French voice LÃ©a as
+                    an NTTS voice. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Thu, 18 Nov 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2021-11-18</guid>
+      </item>
+      <item>
+         <title>New voices added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Italian voice Bianca and the
+                    European Spanish voice Lucia as NTTS voices. See &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Mon, 8 Nov 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_for_NTTS_2021-11-08</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides a new South African English voice,
+                    Ayanda. The voice is available as an NTTS voice only. See
+                        &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;Neural
+                        voices&lt;/a&gt; for a list of NTTS voices.</description>
+         <pubDate>Wed, 1 Sep 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2021-09-01</guid>
+      </item>
+      <item>
+         <title>New Region added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly is now available in the Africa (Cape Town)
+                    AWS Region. This Region supports neural TTS (NTTS). For
+                    more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Feature and Region Compatibility&lt;/a&gt; for a list of
+                    regions that support NTTS.</description>
+         <pubDate>Wed, 1 Sep 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_Region_added_2021-09-01</guid>
+      </item>
+      <item>
+         <title>New language and voice added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now supports New Zealand English (en-NZ). A new NTTS
+                    voice, Aria, speaks New Zealand English and a selection of
+                    Maori words.</description>
+         <pubDate>Tue, 24 Aug 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_language_and_voice_added_2021-08-24</guid>
+      </item>
+      <item>
+         <title>New feature</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly makes the conversational speaking style the default
+                    version for the neural Matthew and Joanna voices. We removed
+                    references to the conversational speaking style.</description>
+         <pubDate>Mon, 28 Jun 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_feature_2021-06-28</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the German voice Vicki as an NTTS
+                    voice.</description>
+         <pubDate>Tue, 15 Jun 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2021-06-15</guid>
+      </item>
+      <item>
+         <title>New voice added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>A new female voice, Gabrielle, has been added to the
+                    French (Canadian) (fr-CA) locale. The voice is high quality
+                    and only available as an NTTS voice. Like all neural voices,
+                    it is only available in certain regions. For a list of
+                    regions, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Feature and region compatibility&lt;/a&gt;.</description>
+         <pubDate>Tue, 1 Jun 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_2021-06-01</guid>
+      </item>
+      <item>
+         <title>New voice added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now provides the Korean voice Seoyeon as an NTTS
+                    voice.</description>
+         <pubDate>Tue, 11 May 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_for_NTTS_2021-05-11</guid>
+      </item>
+      <item>
+         <title>New Region added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Amazon Polly now supports neural TTS (NTTS) in the
+                    Canada (Central) AWS Region. For more information,
+                    see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Feature and Region Compatibility&lt;/a&gt; for
+                    NTTS.</description>
+         <pubDate>Wed, 17 Mar 2021 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_Region_added_for_NTTS_2021-03-17</guid>
+      </item>
+      <item>
+         <title>New voice available for newscaster style</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>In addition to the Matthew, Joanna, and Lupe voices for
+                    the Newscaster speaking style, Amazon Polly now provides an
+                    additional option for this speaking style. Using the neural
+                    engine, you can use the Amy voice in British English for the
+                    Newscaster style. For more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/newscaster-voices.html"&gt;NTTS Speaking Styles&lt;/a&gt;.</description>
+         <pubDate>Tue, 10 Nov 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_available_for_newscaster_style_2020-11-10</guid>
+      </item>
+      <item>
+         <title>New Regions added for NTTS</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>In addition to the existing Regions for NTTS (us-east-1,
+                    us-west-2, eu-west-1, and ap-southeast-2), neural voices are
+                    now supported in four additional Regions: (ap-northeast-1
+                    (Tokyo), ap-southeast-1 (Singapore), eu-central-1
+                    (Frankfurt), and eu-west-2 (London). For more information,
+                    see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Feature and Region Compatibility&lt;/a&gt; for
+                    NTTS.</description>
+         <pubDate>Thu, 3 Sep 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_Regions_added_for_NTTS_2020-09-03</guid>
+      </item>
+      <item>
+         <title>New voice added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>In addition to child voices Ivy and Justin, a new male
+                    child voice, Kevin, has been added to American English
+                    (en-US). This new voice is very high quality and is only
+                    available as an NTTS voice. Like all neural voices, it is
+                    only supported in four Regions: us-east-1 (N. Virginia),
+                    us-west-2 (Oregon), eu-west-1 (Ireland), and ap-southeast-2
+                    (Sydney). For more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/neural-voices.html"&gt;NTTS Voices&lt;/a&gt;.</description>
+         <pubDate>Tue, 16 Jun 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_2020-06-16</guid>
+      </item>
+      <item>
+         <title>New voice available for newscaster style</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>In addition to the Matthew and Joanna voices for the
+                    Newscaster speaking style, Amazon Polly now provides an additional
+                    option for this speaking style. Using the neural engine, you
+                    can use the Lupe voice in Spanish (American) for the
+                    Newscaster style. For more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/newscaster-voices.html"&gt;NTTS Speaking Styles&lt;/a&gt;.</description>
+         <pubDate>Thu, 16 Apr 2020 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_available_for_newscaster_style_2020-04-16</guid>
+      </item>
+      <item>
+         <title>New feature</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>In addition to the Newscaster speaking style, Amazon Polly now
+                    provides a second NTTS speaking style to help you synthesize
+                    even better text to speech passages. The Conversational
+                    style uses the neural system to generate speech in a more
+                    friendly and expressive conversational style that can be
+                    used in many use cases. For more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/newscaster-voices.html"&gt;NTTS Speaking Styles&lt;/a&gt;.</description>
+         <pubDate>Mon, 25 Nov 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_feature_2019-11-25</guid>
+      </item>
+      <item>
+         <title>New voices added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Two new voices added: Camila (female, Portuguese-Brazil)
+                    and Lupe (female, Spanish-US).</description>
+         <pubDate>Wed, 23 Oct 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_2019-10-23</guid>
+      </item>
+      <item>
+         <title>New feature added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Addition of &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/sapi-plugin.html"&gt;Amazon Polly for Windows plugin&lt;/a&gt; to incorporate the
+                    full range of Amazon Polly voices into Windows SAPI-compliant
+                    applications.</description>
+         <pubDate>Thu, 26 Sep 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_feature_added_2019-09-26</guid>
+      </item>
+      <item>
+         <title>Major new feature</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>In addition to the standard text-to-speech (TTS) voices
+                    supported by Amazon Polly since its launch, Amazon Polly now provides an
+                    improved Neural TTS (NTTS) system that can provide even
+                    higher quality voices, thereby providing you with the most
+                    natural and human-like text-to-speech voices possible. For
+                    more information, see &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ntts-regions.html"&gt;Neural Text-to-Speech&lt;/a&gt;.</description>
+         <pubDate>Tue, 30 Jul 2019 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#Major_new_feature_2019-07-30</guid>
+      </item>
+      <item>
+         <title>New voices added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>New voices added: Lucia (female, Spanish), and Bianca
+                    (female, Italian).</description>
+         <pubDate>Thu, 2 Aug 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_2018-08-02</guid>
+      </item>
+      <item>
+         <title>New language added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>New language added: Mexican Spanish (es-MX). This language
+                    uses the female voice of Mia.</description>
+         <pubDate>Thu, 2 Aug 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_language_added_2018-08-02</guid>
+      </item>
+      <item>
+         <title>New language added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>New language added: Hindi (hi-IN). This voice uses the
+                    female voice of Aditi, which is also used for Indian
+                    English, making Aditi Amazon Polly's first bilingual voice.</description>
+         <pubDate>Thu, 2 Aug 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_language_added_2018-08-02</guid>
+      </item>
+      <item>
+         <title>New feature added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Addition of &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/asynchronous.html"&gt;Speech synthesis of long text passages&lt;/a&gt; (up to
+                    100,000 billed characters).</description>
+         <pubDate>Tue, 17 Jul 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_feature_added_2018-07-17</guid>
+      </item>
+      <item>
+         <title>New SSML feature added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Addition of &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/supported-ssml.html#maxduration-tag"&gt;Maximum Duration for Synthesized Speech&lt;/a&gt;.</description>
+         <pubDate>Tue, 17 Jul 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_SSML_feature_added_2018-07-17</guid>
+      </item>
+      <item>
+         <title>New voice added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>New voice added: LÃ©a (female, French).</description>
+         <pubDate>Tue, 5 Jun 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voice_added_2018-06-05</guid>
+      </item>
+      <item>
+         <title>Region expansion</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Expansion of Amazon Polly service to all commercial
+                    regions.</description>
+         <pubDate>Mon, 4 Jun 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#Region_expansion_2018-06-04</guid>
+      </item>
+      <item>
+         <title>New language added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>New language added: Korean (ko-KR).</description>
+         <pubDate>Mon, 4 Jun 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_language_added_2018-06-04</guid>
+      </item>
+      <item>
+         <title>Expanded feature</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>The Amazon Polly WordPress Plugin feature, including
+                    addition of Amazon Translate capabilities.</description>
+         <pubDate>Mon, 4 Jun 2018 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#Expanded_feature_2018-06-04</guid>
+      </item>
+      <item>
+         <title>New voices added</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Two new voices added: Aditi (female, Indian English) and
+                    Seoyeon (female, Korean).</description>
+         <pubDate>Wed, 15 Nov 2017 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_voices_added_2017-11-15</guid>
+      </item>
+      <item>
+         <title>New feature</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>Addition of new &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/speechmarks.html"&gt;Speech Marks&lt;/a&gt; feature, as well as an expansion
+                    of &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/ssml.html"&gt;SSML&lt;/a&gt; capabilities..</description>
+         <pubDate>Wed, 19 Apr 2017 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_feature_2017-04-19</guid>
+      </item>
+      <item>
+         <title>New guide</title>
+         <link>https://docs.aws.amazon.com/polly/latest/dg/doc-history.html</link>
+         <description>This is the first release of the Amazon Polly Developer
+                    Guide.</description>
+         <pubDate>Wed, 30 Nov 2016 19:00:00 GMT</pubDate>
+         <guid isPermaLink="false">https://docs.aws.amazon.com/polly/latest/dg/#New_guide_2016-11-30</guid>
+      </item>
+   </channel>
+</rss>

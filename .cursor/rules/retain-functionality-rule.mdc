@@ -1,0 +1,11 @@
+---
+description: File & Code Modification Rules
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+Precision Fixes Only: When modifying code, Cursor AI should only change the specific lines or sections indicated by the user.
+No Unrequested Deletions: Cursor AI must not remove any existing functionalities, files, or sections unless explicitly instructed.
+Preserve Formatting: Cursor AI should maintain the original code formatting and indentation unless a format fix is explicitly requested.
+Modular Edits: If a function or class is modified, ensure dependent functionalities remain intact and do not introduce breaking changes.

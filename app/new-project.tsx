@@ -23,7 +23,7 @@ export default function NewProject() {
       console.log('Created project:', newProject);
 
       // Navigate to the script editor with the new project ID
-      router.push(`/(script)/${newProject.id}`);
+      router.push('/(tabs)/' as any);  // For now using type assertion
     } catch (error) {
       console.error('Error creating project:', error);
     }
