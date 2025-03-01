@@ -817,7 +817,7 @@ export default function WorkflowScreen() {
     } else {
       setScenes(prev => {
         const newScenes = [...prev];
-        newScenes[index] = updatedScene;
+    newScenes[index] = updatedScene;
         return newScenes;
       });
     }
@@ -861,7 +861,7 @@ export default function WorkflowScreen() {
           />
         );
       case 3:
-        return <AudioSelector />;
+        return <AudioSelector content={content} />;
       case 4:
         return <CaptionEditor />;
       case 5:
