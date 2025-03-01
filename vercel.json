@@ -3,7 +3,7 @@
   "outputDirectory": "web-build",
   "devCommand": "npx expo start --web",
   "cleanUrls": true,
-  "framework": "react",
+  "framework": "create-react-app",
   "rewrites": [
     {
       "source": "/(.*)",
