@@ -1,0 +1,103 @@
+UI Design Document for MediaGen
+
+1. Overview
+This document defines the user interface (UI) components required for the MediaGen application. The UI will interact with a backend API exposed via AWS API Gateway and implemented using AWS Lambda functions in Python. The focus of this document is on front-end architecture, component breakdown, and interaction patterns.
+
+2. Technology Stack
+Frontend Framework: React (Web) + React Native (Mobile)
+State Management: Redux or Context API
+Styling: Tailwind CSS (Web) / Styled Components (Mobile)
+Routing: React Router (Web) / React Navigation (Mobile)
+API Communication: Fetch or Axios (Interacting with REST API)
+UI Library: ShadCN, Material UI (for Web) / NativeBase (for Mobile)
+Deployment: AWS Amplify or S3 + CloudFront
+
+3. UI Component Breakdown
+3.1 Dashboard Page
+Description: Displays all user projects.
+Components:
+ProjectCard.tsx – Displays project thumbnail, title, and status.
+CreateProjectButton.tsx – Button to initiate a new project.
+Sidebar.tsx – Navigation to other sections.
+API Interactions:
+GET /api/get-projects – Fetches the list of user projects.
+POST /api/create-project – Creates a new project.
+
+3.2 Script Editor Page
+Description: Provides a text editor for users to modify and refine their script.
+Components:
+ScriptEditor.tsx – Rich text editor.
+SceneSidebar.tsx – Displays extracted scenes for quick access.
+SaveScriptButton.tsx – Saves script updates.
+API Interactions:
+GET /api/get-script/{projectId} – Retrieves the script for a project.
+PUT /api/update-script/{projectId} – Saves modifications.
+
+3.3 Scene Manager Page
+Description: Displays all scenes in a visual manner.
+Components:
+SceneThumbnail.tsx – Displays preview of each scene.
+EditSceneButton.tsx – Allows user to modify scene details.
+GenerateImagesButton.tsx – Requests AI-generated images for scenes.
+API Interactions:
+GET /api/get-scenes/{projectId} – Fetches scenes for a project.
+POST /api/generate-scene-image/{sceneId} – Requests AI-generated image.
+
+3.4 Image Preview & Regeneration Page
+Description: Allows users to review and regenerate AI-generated images.
+Components:
+ImageDisplay.tsx – Shows generated image.
+RegenerateImageButton.tsx – Requests new image.
+ImageSettings.tsx – Adjusts aspect ratio, background, lighting, etc.
+API Interactions:
+GET /api/get-image/{sceneId} – Retrieves the current AI-generated image.
+POST /api/regenerate-image/{sceneId} – Requests new image.
+
+3.5 Audio Selection Page
+Description: Allows users to select a voice for script narration.
+Components:
+VoiceSelectionDropdown.tsx – Allows users to pick a voice from Amazon Polly.
+PreviewVoiceButton.tsx – Plays sample voice.
+GenerateAudioButton.tsx – Converts script to audio.
+API Interactions:
+GET /api/get-voices – Fetches available voices.
+POST /api/generate-audio/{projectId} – Converts script to MP3.
+
+3.6 Subtitle Styling Page
+Description: Provides customization options for subtitles.
+Components:
+SubtitlePreview.tsx – Displays subtitles in real-time.
+FontPicker.tsx – Allows selection of font, size, color, and styling.
+ApplyStyleButton.tsx – Saves subtitle styling options.
+API Interactions:
+GET /api/get-subtitles/{projectId} – Retrieves current subtitles.
+PUT /api/update-subtitles/{projectId} – Updates subtitle styles.
+
+3.7 Final Compilation Page
+Description: Allows users to render and export the final video.
+Components:
+RenderButton.tsx – Starts video processing.
+DownloadVideoButton.tsx – Provides a download link for the rendered video.
+ProgressIndicator.tsx – Shows rendering progress.
+API Interactions:
+POST /api/render-video/{projectId} – Starts video rendering.
+GET /api/get-render-status/{projectId} – Retrieves render progress.
+GET /api/get-final-video/{projectId} – Provides final video download link.
+
+4. UI Interaction Flow
+User lands on Dashboard → Sees project list → Clicks a project.
+User enters Script Editor → Modifies text → Saves changes.
+User moves to Scene Manager → Views scene thumbnails → Clicks a scene.
+User reviews scene images → Regenerates if needed.
+User selects voice → Converts script to MP3.
+User styles subtitles → Adjusts appearance.
+User compiles final video → Downloads rendered output.
+
+5. Deployment Strategy
+Hosting: AWS Amplify / S3 + CloudFront for static hosting.
+CI/CD: GitHub Actions for automated deployments.
+Error Handling: Global error boundary for UI crashes.
+
+6. Conclusion
+This document provides a clear breakdown of the UI components necessary for the MediaGen application. The UI will strictly interact with the backend via RESTful API calls, assuming all data processing is handled server-side via AWS Lambda. Engineers working on this should adhere to modular component-based development for reusability and scalability.
+
